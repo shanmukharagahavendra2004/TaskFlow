@@ -1,0 +1,317 @@
+{
+  "info": {
+    "_postman_id": "5711aed3-dda5-4f78-92b9-d6af2e485c52",
+    "name": "task flow",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43271048"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"full_name\":\"Bob\",\r\n    \"email\":\"bob@gmail.com\",\r\n    \"password\":\"Bob@1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/auth/register",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"bob@gmail.com\",\r\n    \"password\":\"Bob@1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/auth/login",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Creating Task",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMWMyYzE5Mi1iZDNkLTQ2YTItODhiMy0zODMwYzc1NGU3YzgiLCJyb2xlIjoidXNlciIsImV4cCI6MTc3MDIyNzc5NH0.OtmLdJyAzGlPX_UM9_xI0n8N0lyTAQpTC1T88Hnjq4I",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Finish backend assignment\",\r\n  \"description\": \"Complete FastAPI + PostgreSQL task manager\",\r\n  \"priority\": \"high\",\r\n  \"status\": \"todo\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/tasks",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "tasks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Retrieving tasks from database",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMWMyYzE5Mi1iZDNkLTQ2YTItODhiMy0zODMwYzc1NGU3YzgiLCJyb2xlIjoidXNlciIsImV4cCI6MTc3MDIyNzc5NH0.OtmLdJyAzGlPX_UM9_xI0n8N0lyTAQpTC1T88Hnjq4I",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Backend assignment completed\",\r\n  \"description\": \"PUT API tested successfully\",\r\n  \"priority\": \"high\",\r\n  \"status\": \"done\"\r\n}\r\n"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/tasks",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "tasks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get task by ID",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMWMyYzE5Mi1iZDNkLTQ2YTItODhiMy0zODMwYzc1NGU3YzgiLCJyb2xlIjoidXNlciIsImV4cCI6MTc3MDIyNzc5NH0.OtmLdJyAzGlPX_UM9_xI0n8N0lyTAQpTC1T88Hnjq4I",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/tasks\\6f4bd1b1-3d81-4bfe-a651-e083ea1389e9",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "tasks",
+            "6f4bd1b1-3d81-4bfe-a651-e083ea1389e9"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Updating task details on database",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMWMyYzE5Mi1iZDNkLTQ2YTItODhiMy0zODMwYzc1NGU3YzgiLCJyb2xlIjoidXNlciIsImV4cCI6MTc3MDIyNzc5NH0.OtmLdJyAzGlPX_UM9_xI0n8N0lyTAQpTC1T88Hnjq4I",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Backend assignment completed\",\r\n  \"description\": \"PUT API tested successfully\",\r\n  \"priority\": \"high\",\r\n  \"status\": \"done\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/tasks\\897f8500-f984-48f1-a1f8-b778bfc425ef",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "tasks",
+            "897f8500-f984-48f1-a1f8-b778bfc425ef"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deleting the task from database",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMWMyYzE5Mi1iZDNkLTQ2YTItODhiMy0zODMwYzc1NGU3YzgiLCJyb2xlIjoidXNlciIsImV4cCI6MTc3MDIyNzc5NH0.OtmLdJyAzGlPX_UM9_xI0n8N0lyTAQpTC1T88Hnjq4I",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/tasks\\897f8500-f984-48f1-a1f8-b778bfc425ef",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "tasks",
+            "897f8500-f984-48f1-a1f8-b778bfc425ef"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
