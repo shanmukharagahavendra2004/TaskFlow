@@ -1,9 +1,3 @@
-"""
-alembic/env.py
-──────────────
-Async-aware Alembic runner.  Uses the same engine as the app.
-"""
-
 import asyncio
 from logging.config import fileConfig
 
