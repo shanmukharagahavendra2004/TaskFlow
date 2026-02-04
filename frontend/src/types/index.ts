@@ -1,8 +1,4 @@
-/* ─── src/types/index.ts ─────────────────────────────────────────────
-   Single source of truth for every shape that crosses the wire.
-   These mirror the Pydantic schemas on the backend exactly.        */
 
-// ── Users ─────────────────────────────────────────────────────────
 export interface UserOut {
   id: string;
   email: string;
@@ -27,7 +23,7 @@ export interface TokenResponse {
   user: UserOut;
 }
 
-// ── Tasks ─────────────────────────────────────────────────────────
+
 export type TaskPriority = "low" | "medium" | "high";
 export type TaskStatus  = "todo" | "in_progress" | "done";
 
@@ -63,7 +59,6 @@ export interface TaskListData {
   page_size: number;
 }
 
-// ── API envelope ──────────────────────────────────────────────────
 export interface ApiResponse<T = unknown> {
   success: boolean;
   message: string;
