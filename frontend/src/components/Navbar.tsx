@@ -1,6 +1,4 @@
-/* ─── src/components/Navbar.tsx ───────────────────────────────────
-   Top navigation strip.  Renders differently when authenticated vs
-   unauthenticated.                                                 */
+
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
