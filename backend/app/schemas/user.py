@@ -1,15 +1,8 @@
-"""
-app/schemas/user.py
-───────────────────
-Pydantic v2 schemas for the /auth endpoints.
-Validation rules live here; models stay clean.
-"""
-
 from pydantic import BaseModel, EmailStr, field_validator
 import re
 
 
-# ── Register ──────────────────────────────────────
+
 class UserRegister(BaseModel):
     email: EmailStr
     password: str
@@ -42,13 +35,13 @@ class UserRegister(BaseModel):
         return v
 
 
-# ── Login ─────────────────────────────────────────
+
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
 
-# ── Response payloads ─────────────────────────────
+
 class UserOut(BaseModel):
     id: str
     email: str
