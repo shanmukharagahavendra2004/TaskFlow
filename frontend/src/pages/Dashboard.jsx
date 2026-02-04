@@ -9,13 +9,11 @@ import {
 
 const PAGE_SIZE = 8;
 
-/* ════════════════════════════════════════════════════════════════════
-   DASHBOARD
-   ════════════════════════════════════════════════════════════════════ */
+
 export default function Dashboard() {
   const { user } = useAuth();
 
-  /* ── state ───────────────────────────────────────────────────── */
+  
   const [tasks,   setTasks]   = useState([]);
   const [total,   setTotal]   = useState(0);
   const [page,    setPage]    = useState(1);
@@ -29,7 +27,7 @@ export default function Dashboard() {
   /* delete confirmation */
   const [deleteId, setDeleteId] = useState(null);
 
-  /* ── fetch ───────────────────────────────────────────────────── */
+
   const fetchTasks = useCallback(async () => {
     try {
       const data = await taskSvc.listTasks(page, PAGE_SIZE);
@@ -42,7 +40,7 @@ export default function Dashboard() {
 
   useEffect(() => { fetchTasks(); }, [fetchTasks]);
 
-  /* ── modal helpers ───────────────────────────────────────────── */
+
   const openCreate = () => {
     setEditTarget(null);
     setForm(emptyForm());
@@ -62,7 +60,6 @@ export default function Dashboard() {
 
   const closeModal = () => { setModalMode(null); setEditTarget(null); };
 
-  /* ── save ────────────────────────────────────────────────────── */
   const handleSave = async () => {
     if (!form.title.trim()) {
       setToast({ msg: "Title is required", type: "error" });
@@ -84,7 +81,7 @@ export default function Dashboard() {
     }
   };
 
-  /* ── delete ──────────────────────────────────────────────────── */
+ 
   const confirmDelete = async () => {
     try {
       await taskSvc.deleteTask(deleteId);
@@ -97,14 +94,12 @@ export default function Dashboard() {
     }
   };
 
-  /* ── derived ─────────────────────────────────────────────────── */
+ 
   const todoCount = tasks.filter((t) => t.status === "todo").length;
   const doneCount = tasks.filter((t) => t.status === "done").length;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
-  /* ════════════════════════════════════════════════════════════════
-     RENDER
-     ════════════════════════════════════════════════════════════════ */
+  
   return (
     <div className="max-w-6xl mx-auto px-5 py-7 font-body">
       <Toast
@@ -113,7 +108,7 @@ export default function Dashboard() {
         onClose={() => setToast(null)}
       />
 
-      {/* ── page header ─────────────────────────────────────── */}
+     
       <div className="flex items-start justify-between mb-6">
         <div>
           <h1 className="text-slate-900 text-[22px] font-display font-bold">
@@ -140,7 +135,7 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* ── summary cards ──────────────────────────────────── */}
+     
       <div className="grid grid-cols-3 gap-4 mb-6">
         {[
           { label: "Total Tasks",  value: total,     accent: "border-primary-500", icon: "📋" },
@@ -230,7 +225,7 @@ export default function Dashboard() {
           </tbody>
         </table>
 
-        {/* ── pagination ──────────────────────────────────── */}
+     
         {totalPages > 1 && (
           <div className="flex items-center justify-center gap-2 py-4 border-t border-slate-100">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
@@ -251,7 +246,7 @@ export default function Dashboard() {
         )}
       </div>
 
-      {/* ═══ CREATE / EDIT MODAL ═══════════════════════════════ */}
+
       {modalMode && (
         <Overlay onClose={closeModal}>
           <div className="
@@ -336,7 +331,7 @@ export default function Dashboard() {
         </Overlay>
       )}
 
-      {/* ═══ DELETE CONFIRMATION ════════════════════════════════ */}
+   
       {deleteId && (
         <Overlay onClose={() => setDeleteId(null)}>
           <div className="
@@ -373,15 +368,12 @@ export default function Dashboard() {
   );
 }
 
-/* ── tiny helpers ────────────────────────────────────────────────── */
+
 function emptyForm() {
   return { title: "", description: "", priority: "medium", status: "todo" };
 }
 
-/**
- * Semi-transparent backdrop that closes on click, renders children
- * centred on screen.
- */
+
 function Overlay({ children, onClose }) {
   return (
     <div
