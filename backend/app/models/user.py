@@ -1,9 +1,3 @@
-"""
-app/models/user.py
-──────────────────
-SQLAlchemy ORM – users table.
-"""
-
 import uuid
 from datetime import datetime, timezone
 
@@ -16,14 +10,14 @@ from app.database import Base
 class User(Base):
     __tablename__ = "users"
 
-    # ── primary key ───────────────────────────────
+  
     id: Mapped[str] = mapped_column(
         sa.String(36),
         primary_key=True,
         default=lambda: str(uuid.uuid4()),
     )
 
-    # ── credentials ───────────────────────────────
+  
     email: Mapped[str] = mapped_column(
         sa.String(255), unique=True, nullable=False, index=True
     )
@@ -31,7 +25,7 @@ class User(Base):
         sa.String(255), nullable=False
     )
 
-    # ── profile ───────────────────────────────────
+  
     full_name: Mapped[str] = mapped_column(
         sa.String(100), nullable=False
     )
@@ -50,7 +44,6 @@ class User(Base):
         onupdate=lambda: datetime.now(timezone.utc),
     )
 
-    # ── relationship ──────────────────────────────
     tasks = sa.orm.relationship(
         "Task", back_populates="owner", lazy="selectin"
     )
