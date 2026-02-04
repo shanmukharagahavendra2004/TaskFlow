@@ -33,7 +33,6 @@ export default function Login() {
     }
   }, [email, password, login, navigate]);
 
-  /* ── render ────────────────────────────────────────────────────  */
   return (
     <div className="
       min-h-[calc(100vh-64px)]
@@ -54,7 +53,6 @@ export default function Login() {
         shadow-modal animate-slide-up
         px-8 py-10
       ">
-        {/* ── header ──────────────────────────────────────── */}
         <div className="flex flex-col items-center text-center mb-8">
           {/* icon */}
           <div className="
@@ -75,7 +73,6 @@ export default function Login() {
           </p>
         </div>
 
-        {/* ── form ────────────────────────────────────────── */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           {/* email */}
           <div>
@@ -107,7 +104,6 @@ export default function Login() {
           </button>
         </form>
 
-        {/* ── footer link ─────────────────────────────────── */}
         <p className="text-center text-slate-500 text-sm mt-6">
           Don't have an account?{" "}
           <Link to="/register" className="text-primary-400 font-semibold hover:text-primary-300 transition-colors">
