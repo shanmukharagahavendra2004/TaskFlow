@@ -1,15 +1,8 @@
 import React, { useEffect } from "react";
 
-/**
- * Toast notification banner.
- *
- * @param {{ message: string|null, type: "success"|"error", onClose: () => void }} props
- *
- * Usage:
- *   <Toast message={msg} type="success" onClose={() => setMsg(null)} />
- */
+
 export default function Toast({ message, type = "error", onClose }) {
-  /* auto-dismiss after 4 seconds ────────────────────────────────── */
+  
   useEffect(() => {
     if (!message) return;
     const timer = setTimeout(onClose, 4000);
@@ -18,7 +11,7 @@ export default function Toast({ message, type = "error", onClose }) {
 
   if (!message) return null;
 
-  /* colour map ─────────────────────────────────────────────────── */
+ 
   const styles = {
     success: {
       wrap:  "bg-emerald-50  border-emerald-200",
