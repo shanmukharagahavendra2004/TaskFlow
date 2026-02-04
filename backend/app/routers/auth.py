@@ -1,9 +1,4 @@
-"""
-app/routers/auth.py
-───────────────────
-/api/v1/auth   – public registration & login
-/api/v1/auth/me – protected "who am I?" endpoint
-"""
+
 
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -18,7 +13,7 @@ from app.utils.response import success_response, error_response
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 
-# ── POST /api/v1/auth/register ────────────────────
+
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 async def register(
     payload: UserRegister,
@@ -36,7 +31,7 @@ async def register(
         return error_response(message=str(exc), status_code=status.HTTP_409_CONFLICT)
 
 
-# ── POST /api/v1/auth/login ───────────────────────
+
 @router.post("/login", status_code=status.HTTP_200_OK)
 async def login(
     payload: UserLogin,
@@ -53,7 +48,7 @@ async def login(
         return error_response(message=str(exc), status_code=status.HTTP_401_UNAUTHORIZED)
 
 
-# ── GET  /api/v1/auth/me ──────────────────────────
+
 @router.get("/me", status_code=status.HTTP_200_OK)
 async def get_me(
     current_user: User = Depends(get_current_user),
