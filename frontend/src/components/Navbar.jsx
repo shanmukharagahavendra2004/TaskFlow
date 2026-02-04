@@ -18,7 +18,7 @@ export default function Navbar() {
       px-6 h-16
       bg-slate-900 shadow-md
     ">
-      {/* ── logo ──────────────────────────────────────────── */}
+     
       <button
         onClick={() => navigate("/")}
         className="flex items-center gap-2 group"
@@ -41,7 +41,7 @@ export default function Navbar() {
         </span>
       </button>
 
-      {/* ── right side ────────────────────────────────────── */}
+    
       {user ? (
         <div className="flex items-center gap-3">
           {/* avatar + name */}
