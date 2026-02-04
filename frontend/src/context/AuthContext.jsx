@@ -2,15 +2,15 @@ import React, { createContext, useContext, useState, useCallback } from "react";
 import { setToken, clearToken } from "../utils/token";
 import * as authService from "../services/authService";
 
-/* ── context ─────────────────────────────────────────────────────  */
+
 const AuthContext = createContext(undefined);
 
-/* ── provider ────────────────────────────────────────────────────  */
+
 export function AuthProvider({ children }) {
   const [user, setUser]       = useState(null);
   const [loading, setLoading] = useState(false);
 
-  /* ── login ───────────────────────────────────────────────────── */
+ 
   const login = useCallback(async (payload) => {
     setLoading(true);
     try {
@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  /* ── register ────────────────────────────────────────────────── */
+
   const register = useCallback(async (payload) => {
     setLoading(true);
     try {
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  /* ── logout ──────────────────────────────────────────────────── */
+
   const logout = useCallback(() => {
     clearToken();
     setUser(null);
@@ -47,7 +47,7 @@ export function AuthProvider({ children }) {
   );
 }
 
-/* ── hook ────────────────────────────────────────────────────────  */
+
 export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) {
