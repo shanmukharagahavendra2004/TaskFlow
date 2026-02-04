@@ -1,10 +1,3 @@
-"""
-app/models/task.py
-──────────────────
-SQLAlchemy ORM – tasks table.
-Each task belongs to exactly one user (FK → users.id).
-"""
-
 import uuid
 from datetime import datetime, timezone
 from typing import Optional
@@ -18,14 +11,14 @@ from app.database import Base
 class Task(Base):
     __tablename__ = "tasks"
 
-    # ── primary key ───────────────────────────────
+  
     id: Mapped[str] = mapped_column(
         sa.String(36),
         primary_key=True,
         default=lambda: str(uuid.uuid4()),
     )
 
-    # ── content ───────────────────────────────────
+
     title: Mapped[str] = mapped_column(
         sa.String(200),
         nullable=False,
@@ -48,14 +41,14 @@ class Task(Base):
         default="todo",
     )
 
-    # ── ownership ─────────────────────────────────
+
     owner_id: Mapped[str] = mapped_column(
         sa.ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
     )
 
-    # ── timestamps ────────────────────────────────
+
     created_at: Mapped[datetime] = mapped_column(
         sa.DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),
@@ -67,7 +60,7 @@ class Task(Base):
         onupdate=lambda: datetime.now(timezone.utc),
     )
 
-    # ── relationship ──────────────────────────────
+
     owner = relationship(
         "User",
         back_populates="tasks",
