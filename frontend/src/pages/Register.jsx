@@ -14,7 +14,6 @@ export default function Register() {
   const [loading,setLoading]         = useState(false);
   const [toast,setToast]           = useState(null);
 
-  /* ── client-side validation (mirrors backend rules) ─────────── */
   const validate = () => {
     if (!fullName.trim())
       return "Full name is required";
@@ -41,7 +40,7 @@ export default function Register() {
     return null;                                   // all good
   };
 
-  /* ── submit ────────────────────────────────────────────────── */
+ 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     const err = validate();
@@ -64,7 +63,7 @@ export default function Register() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fullName, email, password, confirmPassword, register, navigate]);
 
-  /* ── render ────────────────────────────────────────────────── */
+
   return (
     <div className="
       min-h-[calc(100vh-64px)]
@@ -85,7 +84,7 @@ export default function Register() {
         shadow-modal animate-slide-up
         px-8 py-10
       ">
-        {/* ── header ────────────────────────────────────── */}
+      
         <div className="flex flex-col items-center text-center mb-8">
           <div className="
             w-14 h-14 rounded-2xl
@@ -104,7 +103,6 @@ export default function Register() {
           </p>
         </div>
 
-        {/* ── form ──────────────────────────────────────── */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* full name */}
           <div>
@@ -160,7 +158,7 @@ export default function Register() {
           </button>
         </form>
 
-        {/* ── footer ────────────────────────────────────── */}
+      
         <p className="text-center text-slate-500 text-sm mt-6">
           Already have an account?{" "}
           <Link to="/login" className="text-primary-400 font-semibold hover:text-primary-300 transition-colors">
