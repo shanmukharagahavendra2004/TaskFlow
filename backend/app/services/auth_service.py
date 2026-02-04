@@ -1,10 +1,3 @@
-"""
-app/services/auth_service.py
-────────────────────────────
-Pure business logic for registration and login.
-No FastAPI Request/Response objects here – keeps it testable.
-"""
-
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -19,7 +12,6 @@ class AuthService:
     def __init__(self, db: AsyncSession):
         self.db = db
 
-    # ── register ──────────────────────────────────
     async def register(self, payload: UserRegister) -> TokenResponse:
         # 1. duplicate-email check
         result = await self.db.execute(
@@ -46,7 +38,7 @@ class AuthService:
             user=UserOut.model_validate(user),
         )
 
-    # ── login ─────────────────────────────────────
+
     async def login(self, payload: UserLogin) -> TokenResponse:
         result = await self.db.execute(
             select(User).where(User.email == payload.email)
