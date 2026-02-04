@@ -1,0 +1,230 @@
+{
+  "info": {
+    "name": "TaskFlow API",
+    "description": "Complete REST API collection for the TaskFlow Task Manager.\n\n## How to use\n1. Set the `baseUrl` variable to your backend address (default `http://localhost:8000`).\n2. Run **POST Register** or **POST Login** first – the response `access_token` is automatically saved to the `token` variable.\n3. All subsequent requests attach that token via the `Authorization` header automatically.\n\n### Roles\n- `user` – sees only their own tasks.\n- `admin` – sees all tasks (set manually in the DB or add a seed script).",
+    "_postman_id": "taskflow-api-v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "description": "Base URL of the FastAPI backend"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "description": "JWT access token – populated automatically by Register / Login"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.data && json.data.access_token) {",
+                  "  pm.collectionVariables.set('token', json.data.access_token);",
+                  "  console.log('Token saved automatically.');",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"jane@example.com\",\n  \"password\": \"Hello123!\",\n  \"full_name\": \"Jane Doe\"\n}",
+              "options": { "language": "json" }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "register"]
+            },
+            "description": "Create a new user account.  Returns a signed JWT."
+          },
+          "response": []
+        },
+        {
+          "name": "POST Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.data && json.data.access_token) {",
+                  "  pm.collectionVariables.set('token', json.data.access_token);",
+                  "  console.log('Token saved automatically.');",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"jane@example.com\",\n  \"password\": \"Hello123!\"\n}",
+              "options": { "language": "json" }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            },
+            "description": "Authenticate with email + password.  Returns a signed JWT."
+          },
+          "response": []
+        },
+        {
+          "name": "GET Me (protected)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "me"]
+            },
+            "description": "Return the currently authenticated user's profile."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "POST Create Task",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Build landing page\",\n  \"description\": \"Design and implement the marketing landing page.\",\n  \"priority\": \"high\",\n  \"status\": \"todo\"\n}",
+              "options": { "language": "json" }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tasks/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tasks", ""]
+            },
+            "description": "Create a new task owned by the current user."
+          },
+          "response": []
+        },
+        {
+          "name": "GET List Tasks",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tasks/?page=1&page_size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tasks", ""],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "page_size", "value": "10" }
+              ]
+            },
+            "description": "Paginated list of tasks.  Admins see all; users see only theirs."
+          },
+          "response": []
+        },
+        {
+          "name": "GET Single Task",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tasks/{{taskId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tasks", "{{taskId}}"]
+            },
+            "description": "Fetch a single task by ID."
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Update Task",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"in_progress\",\n  \"priority\": \"medium\"\n}",
+              "options": { "language": "json" }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tasks/{{taskId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tasks", "{{taskId}}"]
+            },
+            "description": "Partially update a task.  Only send the fields you want to change."
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Task",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tasks/{{taskId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tasks", "{{taskId}}"]
+            },
+            "description": "Permanently delete a task."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Simple liveness probe – returns { status: ok }."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
