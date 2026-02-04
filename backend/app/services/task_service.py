@@ -1,12 +1,3 @@
-"""
-app/services/task_service.py
-────────────────────────────
-CRUD business logic for tasks.
-Ownership is enforced at this layer:
-  • regular users can only see / edit / delete their own tasks
-  • admins can operate on *all* tasks
-"""
-
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -20,7 +11,7 @@ class TaskService:
         self.db = db
         self.user = current_user
 
-    # ── helpers ───────────────────────────────────
+   
     def _base_query(self):
         """Return a SELECT that already applies ownership scoping."""
         qs = select(Task)
@@ -37,7 +28,7 @@ class TaskService:
             raise FileNotFoundError("Task not found")
         return task
 
-    # ── Create ────────────────────────────────────
+   
     async def create(self, payload: TaskCreate) -> TaskOut:
         task = Task(
             title=payload.title,
@@ -50,12 +41,12 @@ class TaskService:
         await self.db.flush()
         return TaskOut.model_validate(task)
 
-    # ── Read (single) ────────────────────────────
+   
     async def get(self, task_id: str) -> TaskOut:
         task = await self._get_or_404(task_id)
         return TaskOut.model_validate(task)
 
-    # ── Read (paginated list) ─────────────────────
+    
     async def list(self, page: int = 1, page_size: int = 10) -> TaskListResponse:
         offset = (page - 1) * page_size
 
@@ -77,7 +68,7 @@ class TaskService:
 
         return TaskListResponse(tasks=tasks, total=total, page=page, page_size=page_size)
 
-    # ── Update ────────────────────────────────────
+ 
     async def update(self, task_id: str, payload: TaskUpdate) -> TaskOut:
         task = await self._get_or_404(task_id)
         updates = payload.model_dump(exclude_unset=True)
@@ -86,7 +77,7 @@ class TaskService:
         await self.db.flush()
         return TaskOut.model_validate(task)
 
-    # ── Delete ────────────────────────────────────
+ 
     async def delete(self, task_id: str) -> None:
         task = await self._get_or_404(task_id)
         await self.db.delete(task)
