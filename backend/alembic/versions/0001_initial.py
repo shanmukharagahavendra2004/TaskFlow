@@ -1,9 +1,3 @@
-"""
-alembic/versions/0001_initial.py
-─────────────────────────────────
-Initial migration: users + tasks tables.
-"""
-
 from alembic import op
 import sqlalchemy as sa
 
@@ -14,7 +8,7 @@ depends_on = None
 
 
 def upgrade() -> None:
-    # ── users ───────────────────────────────────
+  
     op.create_table(
         "users",
         sa.Column("id", sa.String(36), primary_key=True),
@@ -26,7 +20,7 @@ def upgrade() -> None:
         sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()")),
     )
 
-    # ── tasks ───────────────────────────────────
+   
     op.create_table(
         "tasks",
         sa.Column("id", sa.String(36), primary_key=True),
