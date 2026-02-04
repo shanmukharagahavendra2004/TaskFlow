@@ -1,20 +1,13 @@
-"""
-app/schemas/task.py
-───────────────────
-Pydantic v2 schemas for the /tasks endpoints.
-"""
-
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, field_validator
 
 
-# ── Enums (mirrors model defaults; validated here) ─
+
 VALID_PRIORITIES = {"low", "medium", "high"}
 VALID_STATUSES = {"todo", "in_progress", "done"}
 
 
-# ── Create ────────────────────────────────────────
 class TaskCreate(BaseModel):
     title: str
     description: Optional[str] = None
@@ -46,7 +39,7 @@ class TaskCreate(BaseModel):
         return v
 
 
-# ── Update (all fields optional) ──────────────────
+
 class TaskUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
@@ -79,7 +72,7 @@ class TaskUpdate(BaseModel):
         return v
 
 
-# ── Response ──────────────────────────────────────
+
 class TaskOut(BaseModel):
     id: str
     title: str
@@ -93,7 +86,7 @@ class TaskOut(BaseModel):
     model_config = {"from_attributes": True}
 
 
-# ── Paginated list ────────────────────────────────
+
 class TaskListResponse(BaseModel):
     tasks: list[TaskOut]
     total: int
