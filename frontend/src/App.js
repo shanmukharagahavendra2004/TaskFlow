@@ -16,7 +16,7 @@ export default function App() {
       <Navbar />
 
       <Routes>
-        {/* ── public (redirect away if already logged in) ── */}
+     
         <Route
           path="/login"
           element={user ? <Navigate to="/dashboard" replace /> : <Login />}
@@ -26,7 +26,7 @@ export default function App() {
           element={user ? <Navigate to="/dashboard" replace /> : <Register />}
         />
 
-        {/* ── protected ──────────────────────────────────── */}
+   
         <Route
           path="/dashboard"
           element={
@@ -36,7 +36,7 @@ export default function App() {
           }
         />
 
-        {/* ── root & catch-all ───────────────────────────── */}
+      
         <Route path="/"  element={<Navigate to={user ? "/dashboard" : "/login"} replace />} />
         <Route path="*"  element={<Navigate to="/" replace />} />
       </Routes>
