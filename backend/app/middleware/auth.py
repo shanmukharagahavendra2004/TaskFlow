@@ -1,13 +1,3 @@
-"""
-app/middleware/auth.py
-─────────────────────
-FastAPI *dependencies* (not ASGI middleware) that parse the
-Authorization header and load the current user from the DB.
-
-Usage in routes:
-    current_user: User = Depends(get_current_user)
-    admin_user:   User = Depends(get_current_admin)
-"""
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -19,12 +9,11 @@ from app.database import get_db
 from app.models.user import User
 from app.utils.hashing import decode_access_token
 
-# ── OAuth2 scheme ─────────────────────────────────
+
 # tokenUrl is only used by the auto-generated Swagger UI.
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
-# ── core dependency ───────────────────────────────
 async def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: AsyncSession = Depends(get_db),
@@ -55,7 +44,7 @@ async def get_current_user(
     return user
 
 
-# ── admin-only dependency ─────────────────────────
+
 async def get_current_admin(
     current_user: User = Depends(get_current_user),
 ) -> User:
